@@ -16,3 +16,14 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             user.save()
 
             return user
+        
+class UserDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'first_name', 'last_name', 'email', 'phone']
+        
+class HuntSerializer(serializers.ModelSerializer):
+    organizers = UserDataSerializer(many=True, required=False)
+    class Meta:
+        model = Hunt
+        fields = ['id', 'name', 'slug', 'description', 'start_date', 'end_date', 'created_at', 'poster_img', 'organizers']
